@@ -1,6 +1,6 @@
 # 一、预先准备环境
 ## 1. 准备服务器
-这里准备了三台ubuntu虚拟机，每台一核cpu和2G内存，配置好root账户，并安装好了docker，后续的所有操作都是使用root账户。虚拟机具体信息如下表：
+这里准备了三台ubuntu虚拟机，操作系统版本ubuntu16.04，每台一核cpu和2G内存，配置好root账户，并安装好了docker，后续的所有操作都是使用root账户。虚拟机具体信息如下表：
 
 | 系统类型 | IP地址 | 节点角色 | CPU | Memory | Hostname |
 | :------: | :--------: | :-------: | :-----: | :---------: | :-----: |
@@ -19,7 +19,7 @@ $ apt-get remove docker docker-engine docker.io
 ```
 #### 2.2 更新apt-get源
 ```bash
-$ add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+add-apt-repository  "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu/ $(lsb_release -cs)stable"
 ```
 ```bash
 $ apt-get update
@@ -31,7 +31,7 @@ $ apt-get install \
     ca-certificates \
     curl \
     software-properties-common
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add -
 ```
 
 #### 2.4 安装docker-ce
