@@ -19,7 +19,7 @@ $ apt-get remove docker docker-engine docker.io
 ```
 #### 2.2 更新apt-get源
 ```bash
-$ add-apt-repository  "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu/ $(lsb_release -cs)stable"
+$ add-apt-repository  "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu/ $(lsb_release -cs) stable"
 ```
 ```bash
 $ apt-get update
