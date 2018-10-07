@@ -9,7 +9,7 @@
 
 ```bash
 #把服务配置文件copy到系统服务目录
-$ cp ~/kubernetes-starter/target/master-node/etcd.service /lib/systemd/system/
+$ cp target/master-node/etcd.service /lib/systemd/system/
 #enable服务
 $ systemctl enable etcd.service
 #创建工作目录(保存数据的地方)
