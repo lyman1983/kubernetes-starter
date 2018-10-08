@@ -18,6 +18,8 @@ $ mkdir -p /var/lib/etcd
 $ service etcd start
 # 查看服务日志，看是否有错误信息，确保服务正常
 $ journalctl -f -u etcd.service
+# 查看运行状态
+$ systemctl status etcd
 ```
 
 ## 2. 部署APIServer（主节点）
