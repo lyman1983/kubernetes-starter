@@ -380,7 +380,7 @@ $ vimdiff kubernetes-simple/worker-node/kubelet.service kubernetes-with-ca/worke
 
 **更新服务**
 ```bash
-$ cp ~/kubernetes-starter/target/worker-node/kubelet.service /lib/systemd/system/
+$ cp target/worker-node/kubelet.service /lib/systemd/system/
 $ systemctl daemon-reload
 $ service kubelet start
 
