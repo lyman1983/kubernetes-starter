@@ -489,7 +489,40 @@ $ kubectl -n kube-system get pods
 终于，安全版的kubernetes集群我们部署完成了。  
 下面我们使用新集群先温习一下之前学习过的命令，然后再认识一些新的命令，新的参数，新的功能。同样，具体内容请看[视频教程][3]吧~
 
+```bash
+#查看版本
+$ kubectl version
 
+#查看node
+$ kubectl get node
+
+#查看服务
+$ kubectl get svc
+
+#查看pod
+$ kubectl get pods
+
+#创建一个pod
+$ kubectl run kubernetes-bootcamp --image=jocatalin/kubernetes-bootcamp:v1 --port=8080
+
+#查看deploy
+$ kubectl get deploy
+
+#查看pod日志
+$ kubectl logs kubernetes-bootcamp-6b7849c495-9xxx7
+
+#查看pod详细信息
+$ kubectl describe pods kubernetes-bootcamp-6b7849c495-9xxx7
+
+#查看ServiceAccount
+$ kubectl get sa -o yaml
+
+#查看secrtes
+$ kubectl get secrets -o yaml
+
+
+
+```
 
 
 
