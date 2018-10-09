@@ -133,7 +133,7 @@ $ vimdiff kubernetes-simple/master-node/etcd.service kubernetes-with-ca/master-n
 ```
 **更新etcd服务：**
 ```bash
-$ cp ~/kubernetes-starter/target/master-node/etcd.service /lib/systemd/system/
+$ cp target/master-node/etcd.service /lib/systemd/system/
 $ systemctl daemon-reload
 $ service etcd start
 #验证etcd服务（endpoints自行替换）
