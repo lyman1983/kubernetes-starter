@@ -94,8 +94,8 @@ $ cfssl version
 #所有证书相关的东西都放在这
 $ mkdir -p /etc/kubernetes/ca
 #准备生成证书的配置文件
-$ cp ~/kubernetes-starter/target/ca/ca-config.json /etc/kubernetes/ca
-$ cp ~/kubernetes-starter/target/ca/ca-csr.json /etc/kubernetes/ca
+$ cp target/ca/ca-config.json /etc/kubernetes/ca
+$ cp target/ca/ca-csr.json /etc/kubernetes/ca
 #生成证书和秘钥
 $ cd /etc/kubernetes/ca
 $ cfssl gencert -initca ca-csr.json | cfssljson -bare ca
@@ -112,7 +112,7 @@ etcd节点需要提供给其他服务访问，就要验证其他服务的身份�
 #etcd证书放在这
 $ mkdir -p /etc/kubernetes/ca/etcd
 #准备etcd证书配置
-$ cp ~/kubernetes-starter/target/ca/etcd/etcd-csr.json /etc/kubernetes/ca/etcd/
+$ cp target/ca/etcd/etcd-csr.json /etc/kubernetes/ca/etcd/
 $ cd /etc/kubernetes/ca/etcd/
 #使用根证书(ca.pem)签发etcd证书
 $ cfssl gencert \
@@ -151,7 +151,7 @@ $ ETCDCTL_API=3 etcdctl \
 #api-server证书放在这，api-server是核心，文件夹叫kubernetes吧，如果想叫apiserver也可以，不过相关的地方都需要修改哦
 $ mkdir -p /etc/kubernetes/ca/kubernetes
 #准备apiserver证书配置
-$ cp ~/kubernetes-starter/target/ca/kubernetes/kubernetes-csr.json /etc/kubernetes/ca/kubernetes/
+$ cp target/ca/kubernetes/kubernetes-csr.json /etc/kubernetes/ca/kubernetes/
 $ cd /etc/kubernetes/ca/kubernetes/
 #使用根证书(ca.pem)签发kubernetes证书
 $ cfssl gencert \
@@ -180,7 +180,7 @@ $ echo "8afdf3c4eb7c74018452423c29433609,kubelet-bootstrap,10001,\"system:kubele
 ```
 **更新api-server服务**
 ```bash
-$ cp ~/kubernetes-starter/target/master-node/kube-apiserver.service /lib/systemd/system/
+$ cp target/master-node/kube-apiserver.service /lib/systemd/system/
 $ systemctl daemon-reload
 $ service kube-apiserver start
 
@@ -198,7 +198,7 @@ $ vimdiff kubernetes-simple/master-node/kube-controller-manager.service kubernet
 ```
 **更新controller-manager服务**
 ```bash
-$ cp ~/kubernetes-starter/target/master-node/kube-controller-manager.service /lib/systemd/system/
+$ cp target/master-node/kube-controller-manager.service /lib/systemd/system/
 $ systemctl daemon-reload
 $ service kube-controller-manager start
 
@@ -228,7 +228,7 @@ $ journalctl -f -u kube-scheduler
 #kubectl证书放在这，由于kubectl相当于系统管理员，我们使用admin命名
 $ mkdir -p /etc/kubernetes/ca/admin
 #准备admin证书配置 - kubectl只需客户端证书，因此证书请求中 hosts 字段可以为空
-$ cp ~/kubernetes-starter/target/ca/admin/admin-csr.json /etc/kubernetes/ca/admin/
+$ cp target/ca/admin/admin-csr.json /etc/kubernetes/ca/admin/
 $ cd /etc/kubernetes/ca/admin/
 #使用根证书(ca.pem)签发admin证书
 $ cfssl gencert \
@@ -285,7 +285,7 @@ etcd-0               Healthy   {"health": "true"}
 #calico证书放在这
 $ mkdir -p /etc/kubernetes/ca/calico
 #准备calico证书配置 - calico只需客户端证书，因此证书请求中 hosts 字段可以为空
-$ cp ~/kubernetes-starter/target/ca/calico/calico-csr.json /etc/kubernetes/ca/calico/
+$ cp target/ca/calico/calico-csr.json /etc/kubernetes/ca/calico/
 $ cd /etc/kubernetes/ca/calico/
 #使用根证书(ca.pem)签发calico证书
 $ cfssl gencert \
@@ -312,7 +312,7 @@ $ vimdiff kubernetes-simple/all-node/kube-calico.service kubernetes-with-ca/all-
 
 **更新calico服务**
 ```bash
-$ cp ~/kubernetes-starter/target/all-node/kube-calico.service /lib/systemd/system/
+$ cp target/all-node/kube-calico.service /lib/systemd/system/
 $ systemctl daemon-reload
 $ service kube-calico start
 
@@ -369,7 +369,7 @@ $ vimdiff kubernetes-simple/worker-node/10-calico.conf kubernetes-with-ca/worker
 ```
 **copy配置**
 ```bash
-$ cp ~/kubernetes-starter/target/worker-node/10-calico.conf /etc/cni/net.d/
+$ cp target/worker-node/10-calico.conf /etc/cni/net.d/
 ```
 #### 10.4 改造kubelet服务
 **查看diff**
@@ -401,7 +401,7 @@ $ mkdir -p /etc/kubernetes/ca/kube-proxy
 
 #准备proxy证书配置 - proxy只需客户端证书，因此证书请求中 hosts 字段可以为空。
 #CN 指定该证书的 User 为 system:kube-proxy，预定义的 ClusterRoleBinding system:node-proxy 将User system:kube-proxy 与 Role system:node-proxier 绑定，授予了调用 kube-api-server proxy的相关 API 的权限
-$ cp ~/kubernetes-starter/target/ca/kube-proxy/kube-proxy-csr.json /etc/kubernetes/ca/kube-proxy/
+$ cp target/ca/kube-proxy/kube-proxy-csr.json /etc/kubernetes/ca/kube-proxy/
 $ cd /etc/kubernetes/ca/kube-proxy/
 
 #使用根证书(ca.pem)签发calico证书
@@ -451,7 +451,7 @@ $ vimdiff kubernetes-simple/worker-node/kube-proxy.service kubernetes-with-ca/wo
 **启动服务**
 ```bash
 #如果之前的配置没有了，可以重新复制一份过去
-$ cp ~/kubernetes-starter/target/worker-node/kube-proxy.service /lib/systemd/system/
+$ cp target/worker-node/kube-proxy.service /lib/systemd/system/
 $ systemctl daemon-reload
 
 #安装依赖软件
@@ -480,7 +480,7 @@ $ vimdiff kubernetes-simple/services/kube-dns.yaml kubernetes-with-ca/services/k
 
 #### 12.2 创建kube-dns
 ```bash
-$ kubectl create -f ~/kubernetes-starter/target/services/kube-dns.yaml
+$ kubectl create -f target/services/kube-dns.yaml
 #看看启动是否成功
 $ kubectl -n kube-system get pods
 ```
