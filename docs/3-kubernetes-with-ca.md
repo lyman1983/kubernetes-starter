@@ -67,7 +67,7 @@ $ service etcd stop && rm -fr /var/lib/etcd/*
 跟基础环境搭建一样，我们需要生成kubernetes-with-ca的所有相关配置文件
 ```bash
 $ cd ~/kubernetes-starter
-#按照配置文件的提示编辑好配置
+#按照配置文件的提示编辑好配置,修改etcd链接方式为https
 $ vi config.properties
 #生成配置
 $ ./gen-config.sh with-ca
