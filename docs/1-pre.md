@@ -96,6 +96,17 @@ $ vi /etc/hosts
 192.168.1.103 server03
 ```
 
+#### 3.4 关闭swap
+```bash
+#立即生效
+swapoff -a
+
+# 重启生效，用vi修改/etc/fstab文件，在swap分区这行前加 # 禁用掉，保存退出
+vi /etc/fstab
+
+free -m
+```
+
 ## 4. 准备二进制文件（所有节点）
 kubernetes的安装有几种方式，不管是kube-admin还是社区贡献的部署方案都离不开这几种方式：
 - **使用现成的二进制文件**
