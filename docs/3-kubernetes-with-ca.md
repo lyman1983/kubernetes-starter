@@ -561,6 +561,17 @@ vi harbor.cfg
 ./install.sh
 ```
 
+#### 14.5 在所有k8s worker节点上
+```bash
+
+docker login 10.10.50.192:443
+
+cat ~/.docker/config.json
+
+cp ~/.docker/config.json /var/lib/kubelet/config.json
+
+```
+
 ## 15. 安装dashboard
 #### [15.1下载dashboard][4]
 ```bash
